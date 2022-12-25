@@ -1,0 +1,20 @@
+{
+  "appName": {
+    "message": "Solva update helper"
+  },
+  "appDesc": {
+    "message": "Плагин вычитывает все компоненты, отображаемые в фильтре Jira, и составляет команды для выполнения доставки."
+  },
+  "glassFishHeader": {
+    "message": "Необходимо обновить GlassFish"
+  },
+  "glassFishContent": {
+    "message": "Для обновления GlassFish запустите джобу на prod jenkins <a ref='www.ru'/>"
+  },
+  "componentsHeader": {
+    "message": "Необходимо обновить компоненты"
+  },
+  "componentsPsAllHeader": {
+    "message": "Просмотреть поднятые компоненты"
+  }
+}

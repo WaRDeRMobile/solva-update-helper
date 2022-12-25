@@ -1,0 +1,20 @@
+body {
+  width: 30rem;
+  height: 30rem;
+}
+
+h3 {
+  text-align: center;
+}
+
+div {
+
+}
+
+.console {
+  padding: 0.4rem;
+  font-family: Inconsolata, monospace;
+  background-color: black;
+  color: greenyellow;
+  font-weight: bold;
+}

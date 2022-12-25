@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "default_locale": "ru",
+  "name": "__MSG_appName__",
+  "description": "__MSG_appDesc__",
+  "version": "0.1",
+  "action": {
+    "default_popup": "popups/popup.html",
+    "default_icon": {
+      "32": "/icons/32.png",
+      "72": "/icons/72.png",
+      "128": "/icons/128.png",
+      "512": "/icons/512.png"
+    }
+  },
+  "icons": {
+    "32": "/icons/32.png",
+    "72": "/icons/72.png",
+    "128": "/icons/128.png",
+    "512": "/icons/512.png"
+  }
+}
