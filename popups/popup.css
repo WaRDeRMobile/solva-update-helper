@@ -23,3 +23,7 @@ span:hover {
   background-color: darkblue;
   cursor: alias;
 }
+
+.copy {
+  float: right;
+}

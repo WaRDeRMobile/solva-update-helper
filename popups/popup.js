@@ -2,19 +2,24 @@
   window.addEventListener('load', () => {
     init();
   });
-
+  // const
   const H3 = 'h3';
   const DIV = 'div';
   const SPAN = 'span';
   const UL = 'ul';
   const LI = 'li';
   const PS1 = '$> ';
+  const CLIPBOARD_COPIED_TEXT = '📋';
+  // i18n
   const GLASS_FISH_HEADER = "glassFishHeader";
   const GLASS_FISH_CONTENT = "glassFishContent";
   const COMPONENTS_HEADER = 'componentsHeader';
   const COMPONENTS_PS_HEADER = 'componentsPsHeader';
   const COMPONENTS_UP_HEADER = 'componentsUpHeader';
   const COMPONENTS_KILL_HEADER = 'componentsKillHeader';
+  // classes
+  const COPY_CLASS = 'copy';
+  const CONSOLE_CLASS = 'console';
 
   const glassFish = 'GlassFish'
   const components = ['GlassFish', 'c1', 'c2', 'c3'];
@@ -39,8 +44,8 @@
     }
     renderListComponents(withOutGlassfish);
     renderDeployedComponents(withOutGlassfish);
-    // renderUpCommandComponents(withOutGlassfish);
-    // renderKilCommandComponents(withOutGlassfish);
+    renderUpCommandComponents(withOutGlassfish);
+    renderKilCommandComponents(withOutGlassfish);
   }
 
   function renderListComponents(components) {
@@ -92,24 +97,22 @@
   }
 
   function createConsoleCommand(command) {
-    let consoleElement = createElement(DIV, PS1, 'console');
+    let consoleElement = createElement(DIV, PS1, CONSOLE_CLASS);
     let consoleCommandElement = createElement(SPAN, command);
     consoleCommandElement.onclick = consoleCommandOnClickEvent;
     consoleElement.append(consoleCommandElement);
     return consoleElement;
   }
 
-  function consoleCommandOnClickEvent (event) {
-    debugger;
+  async function consoleCommandOnClickEvent(event) {
     let element = event.target;
-    //Select all the text!
-    element.select();
-
-    //Execute command
-    // document.execCommand('copy', false, null);
-    //
-    // //(Optional) De-select the text using blur().
-    // copyFrom.blur();
+    let parent = element.parentNode;
+    let copy = createElement(DIV, CLIPBOARD_COPIED_TEXT, COPY_CLASS);
+    parent.append(copy);
+    navigator.clipboard.writeText(element.textContent)
+      .then(() => {
+        setTimeout(() => copy.remove(), 1000);
+      });
   }
 
   function i18n(message) {
