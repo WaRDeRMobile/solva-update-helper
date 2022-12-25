@@ -1,2 +1,3 @@
-# solva-update-helper
-My private repository
+# Solva update helper
+
+Плагин вычитывает все компоненты, отображаемые в фильтре Jira, и составляет команды для выполнения доставки.
