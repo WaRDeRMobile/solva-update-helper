@@ -14,7 +14,13 @@
   "componentsHeader": {
     "message": "Необходимо обновить компоненты"
   },
-  "componentsPsAllHeader": {
+  "componentsPsHeader": {
     "message": "Просмотреть поднятые компоненты"
+  },
+  "componentsUpHeader": {
+    "message": "Команды для деплоя компонентов"
+  },
+  "componentsKillHeader": {
+    "message": "Команды для остановки компонентов"
   }
 }

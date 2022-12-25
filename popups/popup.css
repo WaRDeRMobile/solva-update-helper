@@ -18,3 +18,8 @@ div {
   color: greenyellow;
   font-weight: bold;
 }
+
+span:hover {
+  background-color: darkblue;
+  cursor: alias;
+}
