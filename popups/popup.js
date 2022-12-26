@@ -1,8 +1,29 @@
+'use strict';
 (function () {
-  window.addEventListener('load', () => {
-    init();
+  window.addEventListener('load', async () => {
+    try {
+      components = await fetchComponents();
+      if (!components || components.length === 0) {
+        renderEmptyPage();
+      }
+      init();
+    } catch (err) {
+      console.log(err);
+      renderEmptyPage();
+    }
   });
-  // const
+
+  async function fetchComponents() {
+    const [tab] = await chrome.tabs.query({active: true, lastFocusedWindow: true});
+    const response = await chrome.tabs.sendMessage(tab.id, {command: FETCH_COMPONENTS});
+    return response?.components;
+  }
+
+  let glassFish = 'GlassFish';
+  let ignoredComponents = ['config-pusher', 'wordpress'];
+  let components = [];
+
+  // constants
   const H3 = 'h3';
   const DIV = 'div';
   const SPAN = 'span';
@@ -17,12 +38,13 @@
   const COMPONENTS_PS_HEADER = 'componentsPsHeader';
   const COMPONENTS_UP_HEADER = 'componentsUpHeader';
   const COMPONENTS_KILL_HEADER = 'componentsKillHeader';
+  const EMPTY_HEADER = 'emptyHeader';
+  const EMPTY_CONTENT = 'emptyContent';
   // classes
   const COPY_CLASS = 'copy';
   const CONSOLE_CLASS = 'console';
-
-  const glassFish = 'GlassFish'
-  const components = ['GlassFish', 'c1', 'c2', 'c3'];
+  // commands
+  const FETCH_COMPONENTS = 'fetchComponents';
 
   function init() {
     createGlassFishContent(components);
@@ -38,14 +60,20 @@
   }
 
   function createComponentsContent(components) {
-    const withOutGlassfish = components.filter(c => c !== glassFish);
-    if (!withOutGlassfish.length) {
+    const ignored = ignoredComponents.push(glassFish);
+    const deployedComponents = components.filter(it => !ignoredComponents.includes(it));
+    if (!deployedComponents.length) {
       return;
     }
-    renderListComponents(withOutGlassfish);
-    renderDeployedComponents(withOutGlassfish);
-    renderUpCommandComponents(withOutGlassfish);
-    renderKilCommandComponents(withOutGlassfish);
+    renderListComponents(deployedComponents);
+    renderDeployedComponents(deployedComponents);
+    renderUpCommandComponents(deployedComponents);
+    renderKilCommandComponents(deployedComponents);
+  }
+
+  function renderEmptyPage() {
+    document.body.append(createElement(H3, i18n(EMPTY_HEADER)));
+    document.body.append(createElement(DIV, i18n(EMPTY_CONTENT)));
   }
 
   function renderListComponents(components) {
