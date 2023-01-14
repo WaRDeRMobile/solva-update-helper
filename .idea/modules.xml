@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/extension.iml" filepath="$PROJECT_DIR$/extension.iml" />
       <module fileurl="file://$PROJECT_DIR$/solva-update-helper.iml" filepath="$PROJECT_DIR$/solva-update-helper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/solva-update-helper-extension.iml" filepath="$PROJECT_DIR$/solva-update-helper-extension.iml" />
     </modules>
   </component>
 </project>
