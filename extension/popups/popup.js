@@ -1,52 +1,37 @@
 'use strict';
+
 (function () {
-  window.addEventListener('load', async () => {
+
+  let glassFish = '';
+  let ignoredComponents = [];
+  let components = [];
+  let ps1 = '';
+
+  window.onload = async () => {
     try {
+      const params = await fetchParams();
+      glassFish = params[optionsGfField];
+      ignoredComponents = params[optionsIgnoredField]
+        .split(',')
+        .map(it => it.trim());
+      ps1 = params[optionsPs1Field];
       components = await fetchComponents();
       if (!components || components.length === 0) {
         renderEmptyPage();
       }
-      init();
+      renderPage();
     } catch (err) {
       console.log(err);
       renderEmptyPage();
     }
-  });
+  };
 
   async function fetchComponents() {
-    const [tab] = await chrome.tabs.query({active: true, lastFocusedWindow: true});
-    const response = await chrome.tabs.sendMessage(tab.id, {command: FETCH_COMPONENTS});
+    const response = await sendToContent(FETCH_COMPONENTS);
     return response?.components;
   }
 
-  let glassFish = 'GlassFish';
-  let ignoredComponents = ['config-pusher', 'wordpress'];
-  let components = [];
-
-  // constants
-  const H3 = 'h3';
-  const DIV = 'div';
-  const SPAN = 'span';
-  const UL = 'ul';
-  const LI = 'li';
-  const PS1 = '$> ';
-  const CLIPBOARD_COPIED_TEXT = '📋';
-  // i18n
-  const GLASS_FISH_HEADER = "glassFishHeader";
-  const GLASS_FISH_CONTENT = "glassFishContent";
-  const COMPONENTS_HEADER = 'componentsHeader';
-  const COMPONENTS_PS_HEADER = 'componentsPsHeader';
-  const COMPONENTS_UP_HEADER = 'componentsUpHeader';
-  const COMPONENTS_KILL_HEADER = 'componentsKillHeader';
-  const EMPTY_HEADER = 'emptyHeader';
-  const EMPTY_CONTENT = 'emptyContent';
-  // classes
-  const COPY_CLASS = 'copy';
-  const CONSOLE_CLASS = 'console';
-  // commands
-  const FETCH_COMPONENTS = 'fetchComponents';
-
-  function init() {
+  function renderPage() {
     createGlassFishContent(components);
     createComponentsContent(components);
   }
@@ -88,11 +73,11 @@
   function renderDeployedComponents(components) {
     document.body.append(createElement(H3, i18n(COMPONENTS_PS_HEADER)));
     document.body.append(
-      createConsoleCommand(`slkz ps | egrep (${components.join('|')})`));
+      createConsoleCommand(`slkz ps | egrep '(${components.join('|')})'`));
     components.forEach(c => {
       document.body.append(
         createConsoleCommand(`slkz ps | grep ${c}`));
-    })
+    });
   }
 
   function renderUpCommandComponents(components) {
@@ -102,7 +87,7 @@
     components.forEach(c => {
       document.body.append(
         createConsoleCommand(`slkz up ${c}`));
-    })
+    });
   }
 
   function renderKilCommandComponents(components) {
@@ -110,22 +95,11 @@
     components.forEach(c => {
       document.body.append(
         createConsoleCommand(`slkz kill ${c}`));
-    })
-  }
-
-  function createElement(tag, text, clazz) {
-    let element = document.createElement(tag);
-    if (text) {
-      element.textContent = text;
-    }
-    if (clazz) {
-      element.className = clazz;
-    }
-    return element;
+    });
   }
 
   function createConsoleCommand(command) {
-    let consoleElement = createElement(DIV, PS1, CONSOLE_CLASS);
+    let consoleElement = createElement(DIV, ps1, CONSOLE_CLASS);
     let consoleCommandElement = createElement(SPAN, command);
     consoleCommandElement.onclick = consoleCommandOnClickEvent;
     consoleElement.append(consoleCommandElement);
@@ -142,8 +116,4 @@
         setTimeout(() => copy.remove(), 1000);
       });
   }
-
-  function i18n(message) {
-    return chrome.i18n.getMessage(message);
-  }
-})()
+})();

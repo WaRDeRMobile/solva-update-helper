@@ -1,0 +1,28 @@
+body {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  overflow: auto;
+}
+
+.options-menu {
+  background-color: cadetblue;
+  box-shadow: 0 0 1rem;
+  padding: 1rem;
+  border-radius: 0.7rem;
+  width: 50rem;
+}
+
+h3 {
+  text-align: center;
+}
+
+input {
+  width: 100%;
+}
+
+.buttonPanel{
+  text-align: center;
+  padding-top: 1rem;
+}

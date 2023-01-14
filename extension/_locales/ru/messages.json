@@ -28,5 +28,14 @@
   },
   "emptyContent": {
     "message": "Не удалось получить список компонентов. Обновите страницу и попробуйте еще раз."
+  },
+  "optionsGfHeader": {
+    "message": "Название компонента GF"
+  },
+  "optionsIgnoredHeader": {
+    "message": "Исключаемые компоненты"
+  },
+  "optionsPs1Header": {
+    "message": "Приглашение командной строки"
   }
 }

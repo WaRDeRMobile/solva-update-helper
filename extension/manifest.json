@@ -3,7 +3,7 @@
   "default_locale": "ru",
   "name": "__MSG_appName__",
   "description": "__MSG_appDesc__",
-  "version": "0.1",
+  "version": "0.2",
   "action": {
     "default_popup": "popups/popup.html",
     "default_icon": {
@@ -28,5 +28,9 @@
         "<all_urls>"
       ]
     }
+  ],
+  "options_page": "/options/options.html",
+  "permissions": [
+    "storage"
   ]
 }

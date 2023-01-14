@@ -7,8 +7,9 @@ h3 {
   text-align: center;
 }
 
-div {
-
+span:hover {
+  background-color: darkblue;
+  cursor: alias;
 }
 
 .console {
@@ -17,11 +18,6 @@ div {
   background-color: black;
   color: greenyellow;
   font-weight: bold;
-}
-
-span:hover {
-  background-color: darkblue;
-  cursor: alias;
 }
 
 .copy {
